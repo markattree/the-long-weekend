@@ -1,0 +1,15 @@
+{
+  "name": "roger-ebot",
+  "version": "1.0.0",
+  "description": "Bot to handle movie spoiler thread permissions on The Long Weekend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mark Attree",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "11.4.2",
+    "eslint": "5.16.0"
+  }
+}
