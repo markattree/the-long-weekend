@@ -32,7 +32,13 @@ client.on('message', msg => {
     return;
   }
 
+  if (args.startsWith('#')) {
+    args = args.substring(1);
+  }
+  
   var channel = client.channels.find(channel => channel.name === args);
+
+  console.log(channel);
 
   if (channel != null) {
     msg.reply('Adding you to ' + channel);
