@@ -15,10 +15,27 @@ client.on('message', msg => {
   if (!messageContent.startsWith(prefix) || msg.author.bot) return;
 
   var args = messageContent.slice(prefix.length + 1).split(/ +/).shift();
+
+  if (args === 'help') {
+    var category = client.channels.find(channel => channel.name === 'Spoiler megathreads' && channel.type === 'category');
+
+    if (category) {
+      var reply = 'Available channels: \n';
+      category.children.forEach(child => {
+        if (child.name !== 'list') {
+          reply += child + '\n';
+        }
+      });
+
+      msg.reply(reply);
+    }
+    return;
+  }
+
   var channel = client.channels.find(channel => channel.name === args);
 
   if (channel != null) {
-    msg.channel.send('That channel exists');
+    msg.reply('Adding you to ' + channel);
     channel.overwritePermissions(msg.member.user.id, { VIEW_CHANNEL: true });
   } else {
     msg.channel.send('That channel does not exist');
