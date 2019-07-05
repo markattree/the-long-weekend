@@ -15,7 +15,7 @@ client.on('message', msg => {
   if (!messageContent.startsWith(prefix) || msg.author.bot) return;
 
   var args = messageContent.slice(prefix.length + 1).split(/ +/).shift();
-  var channel = client.channels.find('name', args);
+  var channel = client.channels.find(channel => channel.name === args);
 
   if (channel != null) {
     msg.channel.send('That channel exists');
