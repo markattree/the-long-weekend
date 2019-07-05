@@ -10,9 +10,11 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-  if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+  var messageContent = msg.content.toLowerCase();
 
-  var args = msg.content.slice(prefix.length + 1).split(/ +/).shift().toLowerCase();
+  if (!messageContent.startsWith(prefix) || msg.author.bot) return;
+
+  var args = messageContent.slice(prefix.length + 1).split(/ +/).shift();
   var channel = client.channels.find('name', args);
 
   if (channel != null) {
