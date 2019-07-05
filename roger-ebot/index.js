@@ -11,14 +11,13 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   var messageContent = msg.content.toLowerCase();
-
   if (!messageContent.startsWith(prefix) || msg.author.bot) return;
 
   var args = getArgs(messageContent);
 
   if (args === 'help') {
     var megathreads = getAllSpoilerMegathreads(client);
-    var reply = megathreads !== '' ? 'Available megathreads:' + megathreads : 'There are no available megathreads';
+    var reply = megathreads !== '' ? 'Available megathreads:' + megathreads : 'There are no available megathreads :thumbsdown:';
     msg.reply(reply);
     return;
   }
@@ -27,13 +26,13 @@ client.on('message', msg => {
 
   if (channel) {
     addUserToChannel(channel, msg.member.user.id)
-      .then(msg.reply('You have been added to ' + channel))
+      .then(msg.reply('You have been added to ' + channel + ' :thumbsup:'))
       .catch(err => {
         console.error(err);
-        msg.reply('Sorry, there was an error adding you to the channel');
+        msg.reply('Sorry, there was an error adding you to the channel :thumbsdown:');
       });
   } else {
-    msg.reply('That channel does not exist');
+    msg.reply('That channel does not exist :thumbsdown:');
   }
 });
 
