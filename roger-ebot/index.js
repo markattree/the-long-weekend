@@ -38,6 +38,8 @@ client.on('message', msg => {
 
 client.on('error', console.error);
 
+client.login(auth.token);
+
 function getArgs (messageContent) {
   return messageContent.slice(prefix.length).trim();
 }
@@ -78,5 +80,3 @@ function getAllSpoilerMegathreads (client) {
 
   return threadList;
 }
-
-client.login(auth.token);
