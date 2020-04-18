@@ -16,8 +16,10 @@ client.on('message', msg => {
   var args = getArgs(messageContent);
 
   if (args === 'help') {
-    var megathreads = getAllSpoilerMegathreads(client);
-    var reply = megathreads !== '' ? 'Available megathreads:' + megathreads : 'There are no available megathreads :thumbsdown:';
+    var movieMegathreads = getMovieSpoilerMegathreads(client);
+    var tvMegathreads = getTVSpoilerMegathreads(client);
+    var reply = movieMegathreads !== '' ? 'here are the available film megathreads:' + movieMegathreads + '\n' : 'There are no available film megathreads :thumbsdown:\n';
+    reply += tvMegathreads !== '' ? 'Here are the available TV megathreads: ' + tvMegathreads : 'There are no available TV megathreads :thumbsdown:';
     msg.reply(reply);
     return;
   }
@@ -44,8 +46,12 @@ function getArgs (messageContent) {
   return messageContent.slice(prefix.length).trim();
 }
 
-function getSpoilerMegathreadsCategory (client) {
-  return client.channels.find(channel => channel.name === 'Spoiler megathreads' && channel.type === 'category');
+function getMovieSpoilerMegathreadsCategory (client) {
+  return client.channels.find(channel => channel.name === 'Spoiler megathreads (film)' && channel.type === 'category');
+}
+
+function getTVSpoilerMegathreadsCategory (client) {
+  return client.channels.find(channel => channel.name === 'Spoiler megathreads (TV)' && channel.type === 'category');
 }
 
 function getChannelByName (client, args) {
@@ -65,13 +71,21 @@ function addUserToChannel (channel, userId) {
   return channel.overwritePermissions(userId, { VIEW_CHANNEL: true });
 }
 
-function getAllSpoilerMegathreads (client) {
-  var spoilerMegathreadsCategory = getSpoilerMegathreadsCategory(client);
+function getMovieSpoilerMegathreads (client) {
+  var category = getMovieSpoilerMegathreadsCategory(client);
+  return getMegathreadsForCategory(client, category);
+}
 
-  if (spoilerMegathreadsCategory) {
+function getTVSpoilerMegathreads (client) {
+  var category = getTVSpoilerMegathreadsCategory(client);
+  return getMegathreadsForCategory(client, category);
+}
+
+function getMegathreadsForCategory (client, category) {
+  if (category) {
     var threadList = '';
 
-    spoilerMegathreadsCategory.children.forEach(child => {
+    category.children.forEach(child => {
       if (child.name !== 'list') {
         threadList += '\n' + child;
       }
