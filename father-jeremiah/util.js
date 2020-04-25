@@ -1,6 +1,4 @@
-const deaths = [
-  /\[(\d{2}:\d{2}):\d{2}\] \[Server thread\/.*?\]: (.*?) (fell .*)/
-];
+const deaths = require('./deaths');
 
 exports.getDeathInfo = (logMessage) => {
   for (const death of deaths) {
