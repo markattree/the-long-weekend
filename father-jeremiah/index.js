@@ -27,12 +27,16 @@ logs.on('line', (logMessage) => {
   }
 });
 
-logs.on('error', () => {
+logs.on('error', (error) => {
   console.error(error);
 });
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
+});
+
+client.on('error', (error) => {
+  console.error(error);
 });
 
 function containsDeath(deathInfo) {
